@@ -1,0 +1,29 @@
+<?php include "header.phtml" ?>
+    <!---------- Body starts --------------->
+<?if($transactionModel->getLoggedStatus()){ ?>
+    <br><br>
+    Back to <a href=<?= $linkTo('accountIndex', ['id' => $user['id']]); ?>> accounts </a>
+    <br><br>
+
+    <?if($transaction['info']=='success'){?>Transaction completed.
+
+    <?}else{?>
+
+    Transaction not completed.<br>
+    <?echo($transaction['info']);}?>
+
+    <br><br><br><br>
+    To return to account <? echo($transaction['accountId']) ?> please click
+    <a href=<?= $linkTo('transactionsIndex', ['id' => $transaction['accountId']]);  ?>>here</a>
+    <br>
+
+<?}else{?>
+    <br><br><br>
+    <strong>You have been logged out. Please  <a href=<?= $linkTo('loginIndex'); ?>>log in</a> again </strong>
+    <br><br><br>
+
+<?}?>
+
+
+    <!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

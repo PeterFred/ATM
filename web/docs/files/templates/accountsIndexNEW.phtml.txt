@@ -1,0 +1,28 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+
+
+Your accounts are:
+<table border="1">
+    <tr>
+        <th align="centre"> Account Number </th>
+        <th align="centre"> Current Balance </th>
+    </tr>
+
+    <?php foreach ($accounts as $account) { ?>
+    <tr align="centre">
+        <td align="centre">
+            <a href= <?= $linkTo('transactionsIndex', ['accountID' => $account->getId()]);?> > <?= $account->getId() ?> </a></td>
+        <td align="centre">
+            $<?= $account->getBalance() ?></td>
+        <td align="centre">
+            <a href= <?= $linkTo('accountDelete', ['id' => $account->getId()]);?> >delete</a></td>
+    </tr>
+    <?php } ?>
+</table>
+
+<a href=<?= $linkTo('accountCreated'); ?>>Create new account.</a> <br><br>
+
+<br>
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

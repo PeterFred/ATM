@@ -1,0 +1,15 @@
+<!---------- Foooter starts --------------->
+
+
+<br><br><br>
+Copyright First National Bank 2018
+<br><br><br>
+
+<form action="/login/logout/" method="POST">
+    <input type="hidden" name="id" value=$user['id']>
+    <input type="submit" name="submit" value="Logout">
+</form>
+
+</body>
+</html>
+<!---------- Foooter ends --------------->

@@ -1,0 +1,41 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+
+<?if($collection->checkLoggedState()){ ?>
+
+<? if($user['info'] == "admin"){?><br><br><br>
+    Admin logged in
+    <br><br>To view users please <a href=<?= $linkTo('userIndex'); ?>>click here </a>
+
+<? }else if($user['firstName'] != null){?>
+        Welcome <?= $user['firstName'] ?>
+
+
+    <? if($user['firstName'] != null) { ?>
+        <br><br>To access your accounts please <a href=<?= $linkTo('accountIndex'); ?>>click here </a>
+    <? } ?>
+
+
+
+
+
+
+<? }else{?><br><br><br>
+
+
+<?= $user['info'] ?> <? if($user['firstName'] != null)  ?> Please <a href=<?= $linkTo('loginIndex'); ?>>log in</a> again.<? ?>
+<? } ?><br>
+
+<?}else{?>
+    <br><br><br>
+    <strong>You have been logged out. Please  <a href=<?= $linkTo('loginIndex'); ?>>log in</a> again </strong>
+    <br><br><br>
+
+<?}?>
+
+    <br><br><br>
+
+    <!---------- Body ends -------------------->
+<br><br><br>
+Copyright First National Bank 2018
+<br><br><br>

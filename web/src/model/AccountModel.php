@@ -1,0 +1,128 @@
+<?php
+namespace agilman\a2\model;
+session_start();
+
+use phpDocumentor\Reflection\DocBlock\Tag\ReturnTagTest;
+
+/**
+ * Class AccountModel
+ *
+ * @package agilman/a2
+ * @author  Andrew Gilman <a.gilman@massey.ac.nz>
+ */
+class AccountModel extends Model
+{
+    /**
+     * @var integer Account ID
+     */
+    private $accountID;
+
+    /**
+     * @var integer UserID Foreign Key
+     */
+    private $userIDFK;
+
+    /**
+     * @var integer Account Balance
+     */
+    private $balance;
+
+
+    /**
+     * @return bool if the user is logged in
+     */
+    public function getLoggedStatus()
+    {
+        return ((new LoginModel())->checkLoggedState());
+    }
+
+    /**
+     * @return int user accountID
+     */
+    public function getID()
+    {
+        return $this->accountID;
+    }
+
+    /**
+     * @return int account balance
+     */
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    /**
+     * Load selected account
+     * @param $id AccountID to load
+     * Queries database on supplied accountID.
+     * If found, loads account details locally. If not, shows logged in as false.
+     * @return $this account
+     */
+    public function load($id)
+    {
+        if (!$result = $this->db->query("SELECT * FROM `account` WHERE `account_id` = $id;")) {
+            error_log("Failed to load from database");
+        }
+        if ($result = $result->fetch_assoc()) {
+            $this->accountID = $result['account_id'];
+            $this->userIDFK = (int)$id;
+            $this->balance = (new TransactionModel())->getAccountBalance($this->accountID);
+        } else {
+            error_log('AccountsModel load error');
+        }
+        return $this;
+    }
+
+    /**
+     * Save the current account  to the database.
+     * Retrieve the account ID from the DB and store locally.
+     * @return $this
+     */
+    public function save()
+    {
+        if (!isset($this->id)) {
+            if (!$result = $this->db->query("INSERT INTO `account` 
+                VALUES (NULL,'$this->userIDFK', 0);")) {
+                // Handle appropiately
+                error_log("Error in saving account to database");
+            }
+            $this->accountID = $this->db->insert_id;
+            return $this;
+        }
+    }
+
+    /**
+     * Create a new account
+     * @param $userIDFK The userID this account is to be associated with.
+     * Save it to the DB once created.
+     */
+    public function createAccount($userIDFK)
+    {
+        $this->userIDFK = $userIDFK;
+        $this->save();
+    }
+
+    /**
+     * Deletes user from the database
+     * Finds all transactions associated with the account, and then deletes them.
+     * Then deletes the current account.
+     * @return $this AccountModel
+     */
+    public function delete()
+    {
+
+        //Delete all transactions related to the account from the transaction table
+        if (!$result = $this->db->query("DELETE FROM `transaction` 
+                                                  WHERE `transaction`.`account_id_FK` = $this->accountID;")) {
+            error_log('Failed to delete transactions AccountModel::delete');
+        }
+
+        //Then delete the relevant account
+        if (!$result = $this->db->query("DELETE FROM `account` 
+                                                  WHERE `account`.`account_id` = $this->accountID;")) {
+            error_log('Failed to delete account AccountModel::delete');
+        }
+        return $this;
+    }
+}

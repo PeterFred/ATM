@@ -1,0 +1,23 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+
+    <i>Please login</i><br><br>
+
+    <form action="/login/validation/" method="POST">
+        <strong>  User ID: </strong>
+        <input type="text" name="email">&nbsp;&nbsp;
+        Please enter your email.<br><br>
+        <strong> Password: </strong>
+        <input type="password" name="password"> Please enter your password: <br><br>
+        <input type="submit" name="submit" value="Login">
+    </form><br>
+
+Don't have a user account? Create one
+    <a href= <?= $linkTo('userCreate');?> >here</a>
+
+<br><br>
+
+    <!---------- Body ends -------------------->
+<br><br><br>
+Copyright First National Bank 2018
+<br><br><br>

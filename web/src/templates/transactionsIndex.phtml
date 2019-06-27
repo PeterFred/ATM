@@ -1,0 +1,64 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+<?if($collection->getLoggedStatus()){ ?>
+<br><br>
+    Back to <a href=<?= $linkTo('accountIndex', ['id' => $user['id']]); ?>> accounts </a>
+<br><br>
+
+Account <?echo($id);?> transactions:
+    <br><br>
+<table border="1">
+    <tr>
+        <th align="centre"> Transaction Number </th>
+        <th align="centre"> Date </th>
+        <th align="centre"> Type </th>
+        <th align="centre"> Amount </th>
+    </tr>
+
+
+    <?php foreach ($transactions as $transaction) { ?>
+        <tr align="centre">
+            <td align="centre"> <?= $transaction->getId() ?> </td>
+            <td align="centre"> <?= $transaction->getDate() ?> </td>
+            <td align="centre"> <?= $transaction->getType() ?> </td>
+            <td align="centre"> <?= $transaction->getAmount() ?> </td>
+        </tr>
+    <?php } ?>
+</table>
+
+<br><br>
+Your account balance is $<?echo($accountBalance);?>
+
+<br><br><br><br>
+
+Perform transaction
+
+    <form action="/transaction/transact/" method="POST">
+        <fieldset>
+            Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="type" value="D" checked id="deposit">
+            <label for="deposit">Deposit</label>&nbsp;&nbsp;
+
+            <input type="radio" name="type" value="W" id="withdrawal">
+            <label for="withdraw">Withdraw</label><br><br>
+
+            Amount: &nbsp;&nbsp;
+
+            <input type="text" name="amount">&nbsp;&nbsp;
+            <input type="hidden" name="accountId" value =<?= $id?>>
+
+            <input type="submit" name="submit" value="Transact"><br>
+        </fieldset>
+    </form><br><br>
+
+<?}else{?>
+    <br><br><br>
+    <strong>You have been logged out. Please  <a href=<?= $linkTo('loginIndex'); ?>>log in</a> again </strong>
+    <br><br><br>
+
+<?}?>
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>
+

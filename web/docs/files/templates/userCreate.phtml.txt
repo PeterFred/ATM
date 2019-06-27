@@ -1,0 +1,37 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+
+    <i>Enter your details</i><br><br>
+
+    <form action="/user/userCreated" method="POST">
+        <table style ="width:25%">
+            <tr>
+                <td align="left">First Name</td>
+                <td align="centre"><input type="text", name = "firstName">
+            </tr>
+            <tr>
+                <td align="left">Last Name</td>
+                <td align="centre"><input type="text", name = "lastName">
+            </tr>
+            <tr>
+                <td align="left">E-mail</td>
+                <td align="centre"><input type="text", name = "email">
+            </tr>
+            <tr>
+                <td align="left">Password</td>
+                <td align="centre"><input type="password", type ="hidden", name = "password">
+            </tr>
+
+
+
+        </table>
+        <br>
+        <input type="submit" name="submit" value="Create Account">
+    </form><br>
+
+<br><br>
+
+    <!---------- Body ends -------------------->
+<br><br><br>
+Copyright First National Bank 2018
+<br><br><br>

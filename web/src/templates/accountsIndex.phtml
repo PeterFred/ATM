@@ -1,0 +1,46 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+
+<?if($collection->getLoggedStatus()){ ?>
+    Your accounts are:
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th align="centre"> Account Number </th>
+            <th align="centre"> Current Balance </th>
+        </tr>
+
+        <?php foreach ($accounts as $account) { ?>
+            <tr align="centre">
+                <td align="centre">
+                    <a href= <?= $linkTo('transactionsIndex', ['id' => $account->getId()]);?> >  <?= $account->getId()  ?> </a></td>
+                <td align="centre">
+                    $<?= $account->getBalance() ?></td>
+                <td align="centre">
+                    <a href= <?= $linkTo('accountDelete', ['id' => $account->getId()] );?> >delete</a></td>
+            </tr>
+        <?php } ?>
+    </table>
+
+    <i>Click on an account number to view transactions</i>
+
+    <br><br>
+    Your total balances are $<?echo($collection->getTotalBalance());?>
+
+    <br><br>
+    <a href=<?= $linkTo('accountCreated');?>> Create new account.</a> <br><br>
+
+    <br><br><br>
+
+    <?}else{?>
+    <br><br><br>
+    <strong>You have been logged out. Please  <a href=<?= $linkTo('loginIndex'); ?>>log in</a> again </strong>
+    <br><br><br>
+
+    <?}?>
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

@@ -1,0 +1,18 @@
+<?php include "header.phtml" ?>
+    <!---------- Body starts --------------->
+
+    <? if($user['error']=="false"){?>
+
+    <?= $user['firstName'] ?>, your user account was created successfully. <br><br><br>
+    Please <a href=<?= $linkTo('loginIndex'); ?>> login</a> to access your account
+
+    <br><br><br>
+
+<? }else{?>
+      <strong><font color = red><?echo($user['info']); ?></font></strong>
+    <br><br><br>
+    Please <a href=<?= $linkTo('userCreate'); ?>> enter your details again</a>
+    <? } ?>
+
+    <!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

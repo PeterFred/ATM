@@ -1,0 +1,17 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+
+<?if($collection->getLoggedStatus()){ ?>
+
+Account <?= $accountId ?> deleted successfully. <br>
+<a href=<?= $linkTo('accountIndex'); ?>>Back</a>
+<br>
+
+<?}else{?>
+    <br><br><br>
+    <strong>You have been logged out. Please  <a href=<?= $linkTo('loginIndex'); ?>>log in</a> again </strong>
+    <br><br><br>
+
+<?}?>
+    <!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

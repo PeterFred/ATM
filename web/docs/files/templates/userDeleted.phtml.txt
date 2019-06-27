@@ -1,0 +1,7 @@
+<?php include "header.phtml" ?>
+<!---------- Body starts --------------->
+User <?= $userId ?> deleted successfully. <br>
+<a href=<?= $linkTo('userIndex'); ?>>Back</a>
+<br>
+    <!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>
